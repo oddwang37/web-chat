@@ -19,7 +19,7 @@ interface ErrorInputProps {
 }
 
 const Root = styled.div`
-  background-color: #1d3175;
+  background-color: #2846a8;
   border: 2px solid #0d3edf;
   color: #fff;
   border-radius: 5px;

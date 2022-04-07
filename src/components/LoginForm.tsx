@@ -6,6 +6,24 @@ import { Formik, Form } from 'formik';
 import Input from 'components/UI/Input/Input';
 import Button from 'components/UI/Button';
 
+const validateEmail = (value: string) => {
+  let errorMessage;
+  if (!value) {
+    errorMessage = 'This field is required';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+    errorMessage = 'Invalid email adress';
+  }
+  return errorMessage;
+};
+
+const validatePass = (value: string) => {
+  let errorMessage;
+  if (!value) {
+    errorMessage = 'This field is required';
+  }
+  return errorMessage;
+};
+
 const LoginForm = () => {
   const initialValues: formValues = { email: '', password: '' };
   return (
@@ -17,12 +35,9 @@ const LoginForm = () => {
         actions.setSubmitting(false);
       }}>
       <StyledForm>
-        <Input name="email" label="Email" />
-        <Input name="password" label="Password" />
+        <Input validate={validateEmail} name="email" label="Email" />
+        <Input validate={validatePass} name="password" label="Password" />
         <LoginButton onClick={() => console.log('asdasd')}>Log in</LoginButton>
-        <SignUp>
-          Need an account? <SignUpLink to="/signup"> SignUp now!</SignUpLink>
-        </SignUp>
       </StyledForm>
     </Formik>
   );
@@ -40,17 +55,6 @@ const StyledForm = styled(Form)`
   flex-direction: column;
 `;
 
-const SignUp = styled.div`
-  text-align: center;
-  margin-top: 10px;
-  color: rgba(0, 0, 0, 0.7);
-`;
-
 const LoginButton = styled(Button)`
   margin-top: 10px;
-`;
-
-const SignUpLink = styled(Link)`
-  color: #2ecde8;
-  text-decoration: none;
 `;
