@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import Input from 'components/UI/Input';
+import Input from 'components/UI/Input/Input';
 import Button from 'components/UI/Button';
 
 const SignUpForm = () => {

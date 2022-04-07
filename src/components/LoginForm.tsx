@@ -1,26 +1,41 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { Formik, Form } from 'formik';
 
-import Input from 'components/UI/Input';
+import Input from 'components/UI/Input/Input';
 import Button from 'components/UI/Button';
 
 const LoginForm = () => {
+  const initialValues: formValues = { email: '', password: '' };
   return (
-    <Root>
-      <Input name="email" label="Email" />
-      <Input name="password" label="Password" />
-      <LoginButton onClick={() => console.log('asdasd')}>Log in</LoginButton>
-      <SignUp>
-        Need an account? <SignUpLink to="/signup"> SignUp now!</SignUpLink>
-      </SignUp>
-    </Root>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={(values, actions) => {
+        console.log({ values, actions });
+        alert(JSON.stringify(values));
+        actions.setSubmitting(false);
+      }}>
+      <StyledForm>
+        <Input name="email" label="Email" />
+        <Input name="password" label="Password" />
+        <LoginButton onClick={() => console.log('asdasd')}>Log in</LoginButton>
+        <SignUp>
+          Need an account? <SignUpLink to="/signup"> SignUp now!</SignUpLink>
+        </SignUp>
+      </StyledForm>
+    </Formik>
   );
 };
 
 export default LoginForm;
 
-const Root = styled.form`
+interface formValues {
+  email: string;
+  password: string;
+}
+
+const StyledForm = styled(Form)`
   display: flex;
   flex-direction: column;
 `;

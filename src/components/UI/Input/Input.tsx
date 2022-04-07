@@ -1,20 +1,25 @@
-import React, { FC, InputHTMLAttributes } from 'react';
+import React, { FC } from 'react';
+import { Field } from 'formik';
 import styled from 'styled-components';
 
-const Input: FC<InputProps> = ({ name, label, ...rest }) => {
+import ErrorInput from 'components/UI/Input/ErrorInput';
+
+const Input: FC<InputProps> = ({ name, label, validate, ...rest }) => {
   return (
     <Root>
       <Label htmlFor={name}>{label}</Label>
-      <InputField id={name} {...rest} />
+      <InputField id={name} name={name} validate={validate} {...rest} />
+      <ErrorInput name={name} />
     </Root>
   );
 };
 
 export default Input;
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps {
   name: string;
   label: string;
+  validate?: (value: string) => any;
 }
 
 const Root = styled.div``;
@@ -22,7 +27,7 @@ const Root = styled.div``;
 const Label = styled.label`
   color: #1a85ccab;
 `;
-const InputField = styled.input`
+const InputField = styled(Field)`
   margin: 5px 0 10px 0;
   display: block;
   width: 100%;
