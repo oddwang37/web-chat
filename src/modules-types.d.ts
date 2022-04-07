@@ -1,3 +1,3 @@
-declare module "*.jpg"
+declare module '*.jpg';
 
-declare module "*.ttf"
+declare module '*.woff';

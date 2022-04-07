@@ -1,28 +1,18 @@
 import React from 'react';
-import styled  from 'styled-components';
-import AuthForm from "./components/AuthForm";
+import LoginPage from 'pages/LoginPage';
+import SignUpPage from 'pages/SignUpPage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-        <AuthWindow>
-            <Logo>Noorchat</Logo>
-            <AuthForm />
-
-        </AuthWindow>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/" element={<LoginPage />} />
+      </Routes>
+    </Router>
   );
 }
 
-export default App
-
-const AuthWindow = styled.div`
-  width: 60%;
-  height: 500px;
-  background-color: #fff;
-`
-
-const Logo = styled.div`
-  font-size: 26px;
-  font-weight: 700;
-  
-`
-
+export default App;

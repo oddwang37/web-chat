@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { createGlobalStyle} from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 import FontStyles from 'fontStyles';
 import loginbg from 'assets/images/loginbg.jpg';
-
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -15,19 +14,19 @@ const GlobalStyles = createGlobalStyle`
   }
   
   body {
-    background-image: url(${loginbg}) center center/cover no-repeat;
-    font-family: 'Poppins', helvetic, arial, sans-serif;
+    background: url(${loginbg}) center center/cover no-repeat;
+    font-family: 'Poppins', arial, sans-serif;
     font-size: 16px;
-    color: #fff;
+    color: #000;
+    width: 100vw;
+    height: 100vh;
   }
-`
+`;
 ReactDOM.render(
   <React.StrictMode>
-      <FontStyles />
-      <GlobalStyles />
+    <FontStyles />
+    <GlobalStyles />
     <App />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
-
-
