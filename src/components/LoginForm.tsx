@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
-import { useDispatch } from 'react-redux';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 
 import { siginInRequest } from 'redux/actions/auth';
 import Input from 'components/UI/Input/Input';
@@ -27,8 +26,8 @@ const validatePass = (value: string) => {
 };
 
 const LoginForm = () => {
+  const error = useSelector((state: RootStateOrAny) => state.error);
   const dispatch = useDispatch();
-
   const initialValues: formValues = { email: '', password: '' };
   return (
     <Formik
@@ -41,7 +40,7 @@ const LoginForm = () => {
       <StyledForm>
         <Input validate={validateEmail} name="email" label="Email" />
         <Input validate={validatePass} name="password" label="Password" />
-        <LoginButton onClick={() => console.log('asdasd')}>Log in</LoginButton>
+        <LoginButton>Log in</LoginButton>
       </StyledForm>
     </Formik>
   );

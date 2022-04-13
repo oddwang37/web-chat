@@ -9,7 +9,7 @@ export default Button;
 
 interface ButtonProps {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const Root = styled.button`

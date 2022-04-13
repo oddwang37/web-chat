@@ -28,8 +28,7 @@ export function* signInSaga({ payload: { email, password } }: any): any {
     const result = yield call(signInWithEmailAndPassword, auth, email, password);
     yield put(signInSuccess(result));
   } catch (error) {
-    const errorMessage = error;
-    yield put(signInFailure(errorMessage));
+    yield put(signInFailure(error));
   }
 }
 
