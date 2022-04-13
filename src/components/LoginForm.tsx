@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
+import { useDispatch } from 'react-redux';
 
+import { siginInRequest } from 'redux/actions/auth';
 import Input from 'components/UI/Input/Input';
 import Button from 'components/UI/Button';
 
@@ -25,13 +27,15 @@ const validatePass = (value: string) => {
 };
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
+
   const initialValues: formValues = { email: '', password: '' };
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={(values, actions) => {
         console.log({ values, actions });
-        alert(JSON.stringify(values));
+        dispatch(siginInRequest(values.email, values.password));
         actions.setSubmitting(false);
       }}>
       <StyledForm>

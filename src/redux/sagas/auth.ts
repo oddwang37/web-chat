@@ -2,8 +2,9 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-
 import { initializeApp } from 'firebase/app';
+
+import { types, signInSuccess, signInFailure } from 'redux/actions/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA2rx-X0gLNmCS2c4ghJHYhhYbWUwuEd5M',
@@ -21,17 +22,17 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 
-export function* signInSaga(action: any): any {
+export function* signInSaga({ payload: { email, password } }: any): any {
   try {
     const auth = yield getAuth();
-    const result = yield call(signInWithEmailAndPassword, auth, 'vladislav@gmail.com', 'qwe123qwe');
-    yield put({ type: 'SIGNIN_SUCCESS', payload: result });
+    const result = yield call(signInWithEmailAndPassword, auth, email, password);
+    yield put(signInSuccess(result));
   } catch (error) {
     const errorMessage = error;
-    yield put({ type: 'SIGNIN_FAILURE', payload: errorMessage });
+    yield put(signInFailure(errorMessage));
   }
 }
 
 export function* watchSignInSaga() {
-  yield takeLatest('SIGNIN_REQUEST', signInSaga);
+  yield takeLatest(types.SIGNIN_REQUEST, signInSaga);
 }

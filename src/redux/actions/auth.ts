@@ -4,8 +4,12 @@ export const types = {
   SIGNIN_FAILURE: 'SIGNIN_FAILURE',
 };
 
-export const siginInRequest = () => ({
+export const siginInRequest = (email: string, password: string) => ({
   type: types.SIGNIN_REQUEST,
+  payload: {
+    email,
+    password,
+  },
 });
 
 export const signInSuccess = (answer: any) => ({
@@ -13,7 +17,7 @@ export const signInSuccess = (answer: any) => ({
   payload: answer,
 });
 
-export const signInFailure = (error: string) => ({
+export const signInFailure = (error: string | unknown) => ({
   type: types.SIGNIN_FAILURE,
   payload: error,
 });
