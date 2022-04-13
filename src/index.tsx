@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { Provider } from 'react-redux';
+
 import { createGlobalStyle } from 'styled-components';
 
+import App from './App';
+import store from 'redux/store';
 import FontStyles from 'fontStyles';
 import loginbg from 'assets/images/loginbg.jpg';
 
@@ -22,11 +25,14 @@ const GlobalStyles = createGlobalStyle`
     height: 100vh;
   }
 `;
+
 ReactDOM.render(
   <React.StrictMode>
     <FontStyles />
     <GlobalStyles />
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

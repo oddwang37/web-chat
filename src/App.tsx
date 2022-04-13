@@ -1,8 +1,9 @@
 import React from 'react';
 import LoginPage from 'pages/LoginPage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Routes>
@@ -11,6 +12,6 @@ function App() {
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;
