@@ -22,16 +22,29 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 
-export function* signInSaga({ payload: { email, password } }: any): any {
+export function* signInSaga({ payload: { email, password, setErrors } }: any): any {
   try {
     const auth = yield getAuth();
     const result = yield call(signInWithEmailAndPassword, auth, email, password);
     yield put(signInSuccess(result));
-  } catch (error) {
-    yield put(signInFailure(error));
+  } catch (error: any) {
+    const mes = getErrorMessageFromCode(error.code);
+    setErrors({ [email]: mes });
+    yield put(signInFailure(mes));
   }
 }
 
 export function* watchSignInSaga() {
   yield takeLatest(types.SIGNIN_REQUEST, signInSaga);
 }
+
+const getErrorMessageFromCode = (code: string) => {
+  switch (code) {
+    case 'auth/user-not-found':
+      return 'User not found';
+    case 'auth/wrong-password':
+      return 'Wrong password!';
+    default:
+      return `An error occured: ${code}`;
+  }
+};

@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Formik, Form } from 'formik';
-import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { siginInRequest } from 'redux/actions/auth';
 import Input from 'components/UI/Input/Input';
+import ErrorInput from 'components/UI/Input/ErrorInput';
 import Button from 'components/UI/Button';
 
 const validateEmail = (value: string) => {
@@ -26,7 +27,6 @@ const validatePass = (value: string) => {
 };
 
 const LoginForm = () => {
-  const error = useSelector((state: RootStateOrAny) => state.error);
   const dispatch = useDispatch();
   const initialValues: formValues = { email: '', password: '' };
   return (
@@ -34,14 +34,20 @@ const LoginForm = () => {
       initialValues={initialValues}
       onSubmit={(values, actions) => {
         console.log({ values, actions });
-        dispatch(siginInRequest(values.email, values.password));
+        dispatch(siginInRequest(values.email, values.password, actions.setErrors));
         actions.setSubmitting(false);
       }}>
-      <StyledForm>
-        <Input validate={validateEmail} name="email" label="Email" />
-        <Input validate={validatePass} name="password" label="Password" />
-        <LoginButton>Log in</LoginButton>
-      </StyledForm>
+      {(formik) => {
+        const { errors } = formik;
+        console.log(errors);
+        return (
+          <StyledForm>
+            <Input validate={validateEmail} name="email" label="Email" />
+            <Input validate={validatePass} name="password" label="Password" />
+            <LoginButton>Log in</LoginButton>
+          </StyledForm>
+        );
+      }}
     </Formik>
   );
 };

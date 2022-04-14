@@ -1,14 +1,21 @@
+import { FormikErrors } from 'formik';
+
 export const types = {
   SIGNIN_REQUEST: 'SIGNIN_REQUEST',
   SIGNIN_SUCCESS: 'SIGNIN_SUCCESS',
   SIGNIN_FAILURE: 'SIGNIN_FAILURE',
 };
 
-export const siginInRequest = (email: string, password: string) => ({
+export const siginInRequest = (
+  email: string,
+  password: string,
+  setErrors: (errors: FormikErrors<any>) => void,
+) => ({
   type: types.SIGNIN_REQUEST,
   payload: {
     email,
     password,
+    setErrors,
   },
 });
 
