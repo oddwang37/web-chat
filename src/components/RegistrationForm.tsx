@@ -1,15 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Formik, Form } from 'formik';
+import { Formik, Form, FormikProps } from 'formik';
 import { useDispatch } from 'react-redux';
 import { siginInRequest } from 'redux/actions/auth';
 
-import { validateEmail, validatePass } from './LoginForm';
+import { validateEmail } from './LoginForm';
 import Input from 'components/UI/Input/Input';
 import Button from 'components/UI/Button';
 
-const validatePassConfirm = (value: string) => {
+const validatePass = (value: string) => {
   let errorMessage;
+  if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/.test(value) || !(value.length > 7)) {
+    errorMessage =
+      'Password must contain at least 1 number, letter in upper and lower case and be at leat 8 characters long';
+  }
+  if (!value) {
+    errorMessage = 'This field is required';
+  }
+  return errorMessage;
+};
+
+const validatePassConfirm = (value: string, passwordValue: string) => {
+  let errorMessage;
+  if (value !== passwordValue) {
+    errorMessage = 'Password must be match';
+  }
   if (!value) {
     errorMessage = 'This field is required';
   }
@@ -28,16 +43,20 @@ const RegistrationForm = () => {
           dispatch(siginInRequest(values.email, values.password, actions.setErrors));
           actions.setSubmitting(false);
         }}>
-        <StyledForm>
-          <Input validate={validateEmail} name="email" label="Email" />
-          <Input validate={validatePass} name="password" label="Password" />
-          <Input
-            validate={validatePassConfirm}
-            name="password-confirm"
-            label="Password confirmation"
-          />
-          <RegistrationButton>Submit</RegistrationButton>
-        </StyledForm>
+        {({ values }: any) => {
+          return (
+            <StyledForm>
+              <Input validate={validateEmail} name="email" label="Email" />
+              <Input validate={validatePass} name="password" label="Password" />
+              <Input
+                validate={() => validatePassConfirm(values.passwordConfirm, values.password)}
+                name="passwordConfirm"
+                label="Password confirmation"
+              />
+              <RegistrationButton>Submit</RegistrationButton>
+            </StyledForm>
+          );
+        }}
       </Formik>
     </div>
   );

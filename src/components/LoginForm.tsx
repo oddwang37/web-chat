@@ -20,7 +20,7 @@ export const validateEmail = (value: string) => {
   return errorMessage;
 };
 
-export const validatePass = (value: string) => {
+const validatePass = (value: string) => {
   let errorMessage;
   if (!value) {
     errorMessage = 'This field is required';
@@ -28,8 +28,8 @@ export const validatePass = (value: string) => {
   return errorMessage;
 };
 
-const vkIcon = <FontAwesomeIcon icon={faVk} fontSize={20} />;
-const googleIcon = <FontAwesomeIcon icon={faGoogle} fontSize={20} />;
+const vkIcon = <FontAwesomeIcon icon={faVk} fontSize={28} />;
+const googleIcon = <FontAwesomeIcon icon={faGoogle} fontSize={28} />;
 
 const LoginForm = () => {
   const dispatch = useDispatch();
