@@ -2,22 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { Formik, Form } from 'formik';
 import { useDispatch } from 'react-redux';
-
 import { siginInRequest } from 'redux/actions/auth';
+
+import { validateEmail, validatePass } from './LoginForm';
 import Input from 'components/UI/Input/Input';
 import Button from 'components/UI/Button';
 
-export const validateEmail = (value: string) => {
-  let errorMessage;
-  if (!value) {
-    errorMessage = 'This field is required';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-    errorMessage = 'Invalid email adress';
-  }
-  return errorMessage;
-};
-
-export const validatePass = (value: string) => {
+const validatePassConfirm = (value: string) => {
   let errorMessage;
   if (!value) {
     errorMessage = 'This field is required';
@@ -25,7 +16,7 @@ export const validatePass = (value: string) => {
   return errorMessage;
 };
 
-const LoginForm = () => {
+const RegistrationForm = () => {
   const dispatch = useDispatch();
   const initialValues: formValues = { email: '', password: '' };
   return (
@@ -40,14 +31,19 @@ const LoginForm = () => {
         <StyledForm>
           <Input validate={validateEmail} name="email" label="Email" />
           <Input validate={validatePass} name="password" label="Password" />
-          <LoginButton>Log in</LoginButton>
+          <Input
+            validate={validatePassConfirm}
+            name="password-confirm"
+            label="Password confirmation"
+          />
+          <RegistrationButton>Submit</RegistrationButton>
         </StyledForm>
       </Formik>
     </div>
   );
 };
 
-export default LoginForm;
+export default RegistrationForm;
 
 interface formValues {
   email: string;
@@ -59,6 +55,6 @@ const StyledForm = styled(Form)`
   flex-direction: column;
 `;
 
-const LoginButton = styled(Button)`
+const RegistrationButton = styled(Button)`
   margin-top: 10px;
 `;
