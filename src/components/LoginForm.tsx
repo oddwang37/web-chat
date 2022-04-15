@@ -6,6 +6,9 @@ import { useDispatch } from 'react-redux';
 import { siginInRequest } from 'redux/actions/auth';
 import Input from 'components/UI/Input/Input';
 import Button from 'components/UI/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faVk } from '@fortawesome/free-brands-svg-icons';
 
 export const validateEmail = (value: string) => {
   let errorMessage;
@@ -25,6 +28,9 @@ export const validatePass = (value: string) => {
   return errorMessage;
 };
 
+const vkIcon = <FontAwesomeIcon icon={faVk} fontSize={20} />;
+const googleIcon = <FontAwesomeIcon icon={faGoogle} fontSize={20} />;
+
 const LoginForm = () => {
   const dispatch = useDispatch();
   const initialValues: formValues = { email: '', password: '' };
@@ -43,6 +49,16 @@ const LoginForm = () => {
           <LoginButton>Log in</LoginButton>
         </StyledForm>
       </Formik>
+      <Inner>
+        <AuthLink href="#">
+          {googleIcon}
+          <span>Log In with Google</span>
+        </AuthLink>
+        <AuthLink href="#">
+          {vkIcon}
+          <span>Log In with VK</span>
+        </AuthLink>
+      </Inner>
     </div>
   );
 };
@@ -61,4 +77,23 @@ const StyledForm = styled(Form)`
 
 const LoginButton = styled(Button)`
   margin-top: 10px;
+`;
+
+const AuthLink = styled.a`
+  display: block;
+  color: #000;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  &:visited {
+    color: #000;
+  }
+`;
+
+const Inner = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
 `;
