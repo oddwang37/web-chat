@@ -1,29 +1,30 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
-const Button: FC<ButtonProps> = ({children, ...rest}) => {
-    return (
-        <Root {...rest}>
-            {children}
-        </Root>
-    )
-}
+const Button: FC<ButtonProps> = ({ children, ...rest }) => {
+  return <Root {...rest}>{children}</Root>;
+};
 
 export default Button;
 
 interface ButtonProps {
-    children: React.ReactNode
-    onClick: () => void;
+  children: React.ReactNode;
+  onClick?: () => void;
 }
 
-const Root = styled.div``
-
-const Label = styled.label`
-  
-`
-const InputField = styled.input`
-  width: 150px;
-  height: 35px;
+const Root = styled.button`
   border: none;
-  padding: 0 5px
-`
+  background-color: #007aff;
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  vertical-align: center;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 5px;
+  &:hover {
+    background-color: #034891;
+  }
+`;
