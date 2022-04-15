@@ -29,19 +29,21 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const initialValues: formValues = { email: '', password: '' };
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={(values, actions) => {
-        console.log({ values, actions });
-        dispatch(siginInRequest(values.email, values.password, actions.setErrors));
-        actions.setSubmitting(false);
-      }}>
-      <StyledForm>
-        <Input validate={validateEmail} name="email" label="Email" />
-        <Input validate={validatePass} name="password" label="Password" />
-        <LoginButton>Log in</LoginButton>
-      </StyledForm>
-    </Formik>
+    <div>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values, actions) => {
+          console.log({ values, actions });
+          dispatch(siginInRequest(values.email, values.password, actions.setErrors));
+          actions.setSubmitting(false);
+        }}>
+        <StyledForm>
+          <Input validate={validateEmail} name="email" label="Email" />
+          <Input validate={validatePass} name="password" label="Password" />
+          <LoginButton>Log in</LoginButton>
+        </StyledForm>
+      </Formik>
+    </div>
   );
 };
 
