@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 
 import { siginInRequest } from 'redux/actions/auth';
 import Input from 'components/UI/Input/Input';
-import ErrorInput from 'components/UI/Input/ErrorInput';
 import Button from 'components/UI/Button';
 
 const validateEmail = (value: string) => {
@@ -37,17 +36,11 @@ const LoginForm = () => {
         dispatch(siginInRequest(values.email, values.password, actions.setErrors));
         actions.setSubmitting(false);
       }}>
-      {(formik) => {
-        const { errors } = formik;
-        console.log(errors);
-        return (
-          <StyledForm>
-            <Input validate={validateEmail} name="email" label="Email" />
-            <Input validate={validatePass} name="password" label="Password" />
-            <LoginButton>Log in</LoginButton>
-          </StyledForm>
-        );
-      }}
+      <StyledForm>
+        <Input validate={validateEmail} name="email" label="Email" />
+        <Input validate={validatePass} name="password" label="Password" />
+        <LoginButton>Log in</LoginButton>
+      </StyledForm>
     </Formik>
   );
 };

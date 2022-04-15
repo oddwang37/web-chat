@@ -29,7 +29,7 @@ export function* signInSaga({ payload: { email, password, setErrors } }: any): a
     yield put(signInSuccess(result));
   } catch (error: any) {
     const mes = getErrorMessageFromCode(error.code);
-    setErrors({ [email]: mes });
+    setErrors({ [mes.field]: mes.text });
     yield put(signInFailure(mes));
   }
 }
@@ -41,10 +41,12 @@ export function* watchSignInSaga() {
 const getErrorMessageFromCode = (code: string) => {
   switch (code) {
     case 'auth/user-not-found':
-      return 'User not found';
+      return { field: 'email', text: 'User not found' };
     case 'auth/wrong-password':
-      return 'Wrong password!';
+      return { field: 'password', text: 'Wrong password' };
+    case 'auth/too-many-requests':
+      return { field: 'email', text: 'Too many requests. Please, try  again later' };
     default:
-      return `An error occured: ${code}`;
+      return { field: 'email', text: `An error occured: ${code}` };
   }
 };
