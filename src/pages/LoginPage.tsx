@@ -13,7 +13,7 @@ const LoginPage = () => {
       <LoginForm />
       <Footer>
         <SLink to="/signup">Sign up</SLink>
-        <SLink to="/">Forgot password?</SLink>
+        <SLink to="/forgot-pass">Forgot password?</SLink>
       </Footer>
     </AuthScreen>
   );
@@ -32,7 +32,7 @@ const Logo = styled.div`
 
 export const Title = styled.h1`
   text-align: center;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 `;
 
 export const Footer = styled.div`

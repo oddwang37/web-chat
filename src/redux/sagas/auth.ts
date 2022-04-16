@@ -1,7 +1,12 @@
 import 'firebase/firestore';
 import 'firebase/auth';
 import { takeLatest, call, put } from 'redux-saga/effects';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 
 import {
@@ -10,6 +15,8 @@ import {
   signInFailure,
   signUpSuccess,
   signUpFailure,
+  forgotPasswordSuccess,
+  forgotPasswordFailure,
 } from 'redux/actions/auth';
 
 const firebaseConfig = {
@@ -47,11 +54,22 @@ export function* signUpSaga({ payload: { email, password, setErrors, navigate } 
     const result = yield call(createUserWithEmailAndPassword, auth, email, password);
     yield put(signUpSuccess(result));
     navigate('../main', { replace: true });
-    console.log(result);
   } catch (error: any) {
     const mes = getErrorMessageFromCode(error.code);
     setErrors({ [mes.field]: mes.text });
     yield put(signUpFailure(mes));
+  }
+}
+
+export function* forgotPasswordSaga({ payload: { email, setErrors } }: any): any {
+  try {
+    const auth = yield getAuth();
+    const result = yield call(sendPasswordResetEmail, auth, email);
+    yield put(forgotPasswordSuccess(result));
+  } catch (error: any) {
+    const mes = getErrorMessageFromCode(error.code);
+    setErrors({ [mes.field]: mes.text });
+    yield put(forgotPasswordFailure(mes));
   }
 }
 
@@ -63,7 +81,11 @@ export function* watchSignUpSaga() {
   yield takeLatest(types.SIGNUP_REQUEST, signUpSaga);
 }
 
-const getErrorMessageFromCode = (code: string) => {
+export function* watchForgotPasswordSaga() {
+  yield takeLatest(types.FORGOTPASSWORD_REQUEST, forgotPasswordSaga);
+}
+
+export const getErrorMessageFromCode = (code: string) => {
   switch (code) {
     case 'auth/user-not-found':
       return { field: 'email', text: 'User not found' };

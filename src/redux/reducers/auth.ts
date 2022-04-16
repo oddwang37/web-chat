@@ -15,6 +15,10 @@ export const authReducer = (state = initialState, action: any) => {
       return { answer: action.payload, error: '' };
     case types.SIGNUP_FAILURE:
       return { answer: action.payload, error: '' };
+    case types.FORGOTPASSWORD_SUCCESS:
+      return state;
+    case types.FORGOTPASSWORD_FAILURE:
+      return state;
     default:
       return state;
   }

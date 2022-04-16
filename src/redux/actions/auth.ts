@@ -7,6 +7,9 @@ export const types = {
   SIGNUP_REQUEST: 'SIGNUP_REQUEST',
   SIGNUP_SUCCESS: 'SIGNUP_SUCCESS',
   SIGNUP_FAILURE: 'SIGNUP_FAILURE',
+  FORGOTPASSWORD_REQUEST: 'FORGOTPASSWORD_REQUEST',
+  FORGOTPASSWORD_SUCCESS: 'FORGOTPASSWORD_SUCCESS',
+  FORGOTPASSWORD_FAILURE: 'FORGOTPASSWORD_FAILURE',
 };
 
 export const siginInRequest = (
@@ -56,5 +59,26 @@ export const signUpSuccess = (answer: any) => ({
 
 export const signUpFailure = (error: string | unknown) => ({
   type: types.SIGNUP_FAILURE,
+  payload: error,
+});
+
+export const forgotPasswordRequest = (
+  email: string,
+  setErrors: (errors: FormikErrors<any>) => void,
+) => ({
+  type: types.FORGOTPASSWORD_REQUEST,
+  payload: {
+    email,
+    setErrors,
+  },
+});
+
+export const forgotPasswordSuccess = (answer: any) => ({
+  type: types.SIGNUP_SUCCESS,
+  payload: answer,
+});
+
+export const forgotPasswordFailure = (error: string | unknown) => ({
+  type: types.FORGOTPASSWORD_FAILURE,
   payload: error,
 });
