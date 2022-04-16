@@ -1,10 +1,16 @@
 import 'firebase/firestore';
 import 'firebase/auth';
 import { takeLatest, call, put } from 'redux-saga/effects';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 
-import { types, signInSuccess, signInFailure } from 'redux/actions/auth';
+import {
+  types,
+  signInSuccess,
+  signInFailure,
+  signUpSuccess,
+  signUpFailure,
+} from 'redux/actions/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA2rx-X0gLNmCS2c4ghJHYhhYbWUwuEd5M',
@@ -22,11 +28,12 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 
-export function* signInSaga({ payload: { email, password, setErrors } }: any): any {
+export function* signInSaga({ payload: { email, password, setErrors, navigate } }: any): any {
   try {
     const auth = yield getAuth();
     const result = yield call(signInWithEmailAndPassword, auth, email, password);
     yield put(signInSuccess(result));
+    navigate('../main', { replace: true });
   } catch (error: any) {
     const mes = getErrorMessageFromCode(error.code);
     setErrors({ [mes.field]: mes.text });
@@ -34,8 +41,26 @@ export function* signInSaga({ payload: { email, password, setErrors } }: any): a
   }
 }
 
+export function* signUpSaga({ payload: { email, password, setErrors, navigate } }: any): any {
+  try {
+    const auth = yield getAuth();
+    const result = yield call(createUserWithEmailAndPassword, auth, email, password);
+    yield put(signUpSuccess(result));
+    navigate('../main', { replace: true });
+    console.log(result);
+  } catch (error: any) {
+    const mes = getErrorMessageFromCode(error.code);
+    setErrors({ [mes.field]: mes.text });
+    yield put(signUpFailure(mes));
+  }
+}
+
 export function* watchSignInSaga() {
   yield takeLatest(types.SIGNIN_REQUEST, signInSaga);
+}
+
+export function* watchSignUpSaga() {
+  yield takeLatest(types.SIGNUP_REQUEST, signUpSaga);
 }
 
 const getErrorMessageFromCode = (code: string) => {

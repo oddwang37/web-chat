@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Formik, Form } from 'formik';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { siginInRequest } from 'redux/actions/auth';
 import Input from 'components/UI/Input/Input';
@@ -33,6 +34,7 @@ const googleIcon = <FontAwesomeIcon icon={faGoogle} fontSize={28} />;
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const initialValues: formValues = { email: '', password: '' };
   return (
     <div>
@@ -40,7 +42,7 @@ const LoginForm = () => {
         initialValues={initialValues}
         onSubmit={(values, actions) => {
           console.log({ values, actions });
-          dispatch(siginInRequest(values.email, values.password, actions.setErrors));
+          dispatch(siginInRequest(values.email, values.password, actions.setErrors, navigate));
           actions.setSubmitting(false);
         }}>
         <StyledForm>

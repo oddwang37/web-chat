@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Formik, Form, FormikProps } from 'formik';
+import { Formik, Form } from 'formik';
 import { useDispatch } from 'react-redux';
-import { siginInRequest } from 'redux/actions/auth';
+import { signUpRequest } from 'redux/actions/auth';
+import { useNavigate } from 'react-router-dom';
 
 import { validateEmail } from './LoginForm';
 import Input from 'components/UI/Input/Input';
@@ -33,6 +34,7 @@ const validatePassConfirm = (value: string, passwordValue: string) => {
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const initialValues: formValues = { email: '', password: '' };
   return (
     <div>
@@ -40,7 +42,7 @@ const RegistrationForm = () => {
         initialValues={initialValues}
         onSubmit={(values, actions) => {
           console.log({ values, actions });
-          dispatch(siginInRequest(values.email, values.password, actions.setErrors));
+          dispatch(signUpRequest(values.email, values.password, actions.setErrors, navigate));
           actions.setSubmitting(false);
         }}>
         {({ values }: any) => {
