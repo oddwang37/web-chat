@@ -8,6 +8,7 @@ import {
   sendPasswordResetEmail,
 } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
+import { toast } from 'react-toastify';
 
 import {
   types,
@@ -35,6 +36,28 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 
+const notifyForgotPassSuccess = () =>
+  toast.success('Successfull! Please check your e-mail for password reset link', {
+    position: 'top-right',
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+
+const notifyForgotPassFailure = (errorText: string) =>
+  toast.error(errorText, {
+    position: 'top-right',
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+
 export function* signInSaga({ payload: { email, password, setErrors, navigate } }: any): any {
   try {
     const auth = yield getAuth();
@@ -61,15 +84,16 @@ export function* signUpSaga({ payload: { email, password, setErrors, navigate } 
   }
 }
 
-export function* forgotPasswordSaga({ payload: { email, setErrors } }: any): any {
+export function* forgotPasswordSaga({ payload: { email } }: any): any {
   try {
     const auth = yield getAuth();
     const result = yield call(sendPasswordResetEmail, auth, email);
     yield put(forgotPasswordSuccess(result));
+    notifyForgotPassSuccess();
   } catch (error: any) {
     const mes = getErrorMessageFromCode(error.code);
-    setErrors({ [mes.field]: mes.text });
     yield put(forgotPasswordFailure(mes));
+    notifyForgotPassFailure(mes.text);
   }
 }
 

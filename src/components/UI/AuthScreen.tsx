@@ -2,12 +2,21 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 
 const AuthScreen: FC = (props) => {
-  return <Root>{props.children}</Root>;
+  return (
+    <Root>
+      <Window>{props.children}</Window>
+    </Root>
+  );
 };
 
 export default AuthScreen;
 
-export const Root = styled.div`
+const Root = styled.div`
+  width: 100vw;
+  height: 100vh;
+`;
+
+export const Window = styled.div`
   width: 30%;
   background-color: #fff;
   border-radius: 10px;

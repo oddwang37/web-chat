@@ -62,14 +62,10 @@ export const signUpFailure = (error: string | unknown) => ({
   payload: error,
 });
 
-export const forgotPasswordRequest = (
-  email: string,
-  setErrors: (errors: FormikErrors<any>) => void,
-) => ({
+export const forgotPasswordRequest = (email: string) => ({
   type: types.FORGOTPASSWORD_REQUEST,
   payload: {
     email,
-    setErrors,
   },
 });
 

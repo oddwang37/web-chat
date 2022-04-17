@@ -17,7 +17,7 @@ const LoginForm = () => {
         initialValues={initialValues}
         onSubmit={(values, actions) => {
           console.log({ values, actions });
-          dispatch(forgotPasswordRequest(values.email, actions.setErrors));
+          dispatch(forgotPasswordRequest(values.email));
           actions.setSubmitting(false);
         }}>
         <StyledForm>
