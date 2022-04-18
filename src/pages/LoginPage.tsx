@@ -1,33 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { Link } from 'react-router-dom';
 import LoginForm from 'components/LoginForm';
+import AuthScreen from 'components/UI/AuthScreen';
 
 const LoginPage = () => {
   return (
-    <Root>
-      <Logo>Noorchat</Logo>
-      <Title>Log in!</Title>
+    <AuthScreen>
+      <Title>Log in</Title>
       <LoginForm />
-    </Root>
+      <Footer>
+        <SLink to="/signup">Sign up</SLink>
+        <SLink to="/forgot-pass">Forgot password?</SLink>
+      </Footer>
+    </AuthScreen>
   );
 };
 
 export default LoginPage;
 
-export const Root = styled.div`
-  width: 30%;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 30px;
-  align-self: center;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-`;
-
-export const Logo = styled.div`
+const Logo = styled.div`
   font-size: 30px;
   font-weight: 700;
   color: #80abd3;
@@ -38,5 +30,19 @@ export const Logo = styled.div`
 
 export const Title = styled.h1`
   text-align: center;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
+`;
+
+export const Footer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+`;
+export const SLink = styled(Link)`
+  color: #2ecde8;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
