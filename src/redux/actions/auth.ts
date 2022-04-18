@@ -10,6 +10,9 @@ export const types = {
   FORGOTPASSWORD_REQUEST: 'FORGOTPASSWORD_REQUEST',
   FORGOTPASSWORD_SUCCESS: 'FORGOTPASSWORD_SUCCESS',
   FORGOTPASSWORD_FAILURE: 'FORGOTPASSWORD_FAILURE',
+  CONFIRMPASSWORD_REQUEST: 'CONFIRMPASSWORD_REQUEST',
+  CONFIRMPASSWORD_SUCCESS: 'CONFIRMPASSWORD_SUCCESS',
+  CONFIRMPASSWORD_FAILURE: 'CONFIRMPASSWORD_FAILURE',
 };
 
 export const siginInRequest = (
@@ -76,5 +79,24 @@ export const forgotPasswordSuccess = (answer: any) => ({
 
 export const forgotPasswordFailure = (error: string | unknown) => ({
   type: types.FORGOTPASSWORD_FAILURE,
+  payload: error,
+});
+
+export const confirmPasswordRequest = (password: string, navigate: any, oobCode: string) => ({
+  type: types.CONFIRMPASSWORD_REQUEST,
+  payload: {
+    password,
+    navigate,
+    oobCode,
+  },
+});
+
+export const confirmPasswordSuccess = (answer: any) => ({
+  type: types.CONFIRMPASSWORD_SUCCESS,
+  payload: answer,
+});
+
+export const confirmPasswordFailure = (error: string | unknown) => ({
+  type: types.CONFIRMPASSWORD_FAILURE,
   payload: error,
 });

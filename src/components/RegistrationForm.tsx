@@ -9,7 +9,7 @@ import { validateEmail } from './LoginForm';
 import Input from 'components/UI/Input/Input';
 import Button from 'components/UI/Button';
 
-const validatePass = (value: string) => {
+export const validatePass = (value: string) => {
   let errorMessage;
   if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/.test(value) || !(value.length > 7)) {
     errorMessage =
@@ -21,7 +21,7 @@ const validatePass = (value: string) => {
   return errorMessage;
 };
 
-const validatePassConfirm = (value: string, passwordValue: string) => {
+export const validatePassConfirm = (value: string, passwordValue: string) => {
   let errorMessage;
   if (value !== passwordValue) {
     errorMessage = 'Password must be match';
@@ -35,7 +35,7 @@ const validatePassConfirm = (value: string, passwordValue: string) => {
 const RegistrationForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const initialValues: formValues = { email: '', password: '' };
+  const initialValues: formValues = { email: '', password: '', passwordConfirm: '' };
   return (
     <div>
       <Formik
@@ -69,6 +69,7 @@ export default RegistrationForm;
 interface formValues {
   email: string;
   password: string;
+  passwordConfirm: string;
 }
 
 const StyledForm = styled(Form)`

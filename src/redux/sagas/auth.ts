@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
+  confirmPasswordReset,
 } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { toast } from 'react-toastify';
@@ -18,6 +19,8 @@ import {
   signUpFailure,
   forgotPasswordSuccess,
   forgotPasswordFailure,
+  confirmPasswordSuccess,
+  confirmPasswordFailure,
 } from 'redux/actions/auth';
 
 const firebaseConfig = {
@@ -58,6 +61,16 @@ const notifyForgotPassFailure = (errorText: string) =>
     progress: undefined,
   });
 
+const notifyConfirmPassSuccess = () =>
+  toast.success('Password successfully changed! Redirecting to log in page...', {
+    position: 'top-right',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
 export function* signInSaga({ payload: { email, password, setErrors, navigate } }: any): any {
   try {
     const auth = yield getAuth();
@@ -97,6 +110,21 @@ export function* forgotPasswordSaga({ payload: { email } }: any): any {
   }
 }
 
+export function* confirmPasswordSaga({ payload: { password, navigate, oobCode } }: any): any {
+  try {
+    const auth = yield getAuth();
+    const result = yield call(confirmPasswordReset, auth, oobCode, password);
+    yield put(confirmPasswordSuccess(result));
+    notifyConfirmPassSuccess();
+    setTimeout(() => {
+      navigate('../login', { replace: true });
+    }, 3000);
+  } catch (error: any) {
+    const mes = getErrorMessageFromCode(error.code);
+    yield put(confirmPasswordFailure(mes));
+  }
+}
+
 export function* watchSignInSaga() {
   yield takeLatest(types.SIGNIN_REQUEST, signInSaga);
 }
@@ -107,6 +135,10 @@ export function* watchSignUpSaga() {
 
 export function* watchForgotPasswordSaga() {
   yield takeLatest(types.FORGOTPASSWORD_REQUEST, forgotPasswordSaga);
+}
+
+export function* watchUpdatePasswordSaga() {
+  yield takeLatest(types.CONFIRMPASSWORD_REQUEST, confirmPasswordSaga);
 }
 
 export const getErrorMessageFromCode = (code: string) => {

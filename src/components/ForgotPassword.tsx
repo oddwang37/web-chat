@@ -8,9 +8,9 @@ import { forgotPasswordRequest } from 'redux/actions/auth';
 import Input from 'components/UI/Input/Input';
 import Button from 'components/UI/Button';
 
-const LoginForm = () => {
+const ForgotPassword = () => {
   const dispatch = useDispatch();
-  const initialValues: formValues = { email: '', password: '' };
+  const initialValues: formValues = { email: '' };
   return (
     <div>
       <Formik
@@ -22,18 +22,17 @@ const LoginForm = () => {
         }}>
         <StyledForm>
           <Input validate={validateEmail} name="email" label="Email" />
-          <ResetPassButton>Reset password</ResetPassButton>
+          <ResetPassButton>Send link for password reset</ResetPassButton>
         </StyledForm>
       </Formik>
     </div>
   );
 };
 
-export default LoginForm;
+export default ForgotPassword;
 
 interface formValues {
   email: string;
-  password: string;
 }
 
 const StyledForm = styled(Form)`
