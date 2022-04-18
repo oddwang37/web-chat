@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { validateEmail } from './LoginForm';
 import Input from 'components/UI/Input/Input';
-import Button from 'components/UI/Button';
+import { Button } from 'reactstrap';
 
 export const validatePass = (value: string) => {
   let errorMessage;
@@ -55,7 +55,7 @@ const RegistrationForm = () => {
                 name="passwordConfirm"
                 label="Password confirmation"
               />
-              <RegistrationButton>Submit</RegistrationButton>
+              <RegistrationButton color="primary">Submit</RegistrationButton>
             </StyledForm>
           );
         }}

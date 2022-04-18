@@ -8,6 +8,7 @@ import App from './App';
 import store from 'redux/store';
 import FontStyles from 'fontStyles';
 import loginbg from 'assets/images/loginbg.jpg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const GlobalStyles = createGlobalStyle`
   * {

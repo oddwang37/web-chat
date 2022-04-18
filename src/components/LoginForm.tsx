@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { siginInRequest } from 'redux/actions/auth';
 import Input from 'components/UI/Input/Input';
-import Button from 'components/UI/Button';
+//import Button from 'components/UI/Button';
+import { Button } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faVk } from '@fortawesome/free-brands-svg-icons';
@@ -48,7 +49,7 @@ const LoginForm = () => {
         <StyledForm>
           <Input validate={validateEmail} name="email" label="Email" />
           <Input validate={validatePass} name="password" label="Password" />
-          <LoginButton>Log in</LoginButton>
+          <LoginButton color="primary">Log in</LoginButton>
         </StyledForm>
       </Formik>
       <Inner>
@@ -97,5 +98,5 @@ const Inner = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 15px;
+  margin-top: 25px;
 `;

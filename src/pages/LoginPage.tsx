@@ -7,8 +7,7 @@ import AuthScreen from 'components/UI/AuthScreen';
 const LoginPage = () => {
   return (
     <AuthScreen>
-      <Logo>Noorchat</Logo>
-      <Title>Log in!</Title>
+      <Title>Log in</Title>
       <LoginForm />
       <Footer>
         <SLink to="/signup">Sign up</SLink>

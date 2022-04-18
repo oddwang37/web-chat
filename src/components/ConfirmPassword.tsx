@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Formik, Form } from 'formik';
+import { Formik } from 'formik';
+import { Form } from 'reactstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -8,7 +9,7 @@ import { toast } from 'react-toastify';
 import { confirmPasswordRequest } from 'redux/actions/auth';
 import { validatePass, validatePassConfirm } from './RegistrationForm';
 import Input from 'components/UI/Input/Input';
-import Button from 'components/UI/Button';
+import { Button } from 'reactstrap';
 
 const ConfirmPassword = () => {
   const dispatch = useDispatch();
@@ -40,15 +41,15 @@ const ConfirmPassword = () => {
         }}>
         {({ values }) => {
           return (
-            <StyledForm>
+            <Form>
               <Input validate={validatePass} name="password" label="Password" />
               <Input
                 validate={() => validatePassConfirm(values.confirmPassword, values.password)}
                 name="confirmPassword"
                 label="Confirm assword"
               />
-              <ResetPassButton>Update password</ResetPassButton>
-            </StyledForm>
+              <ResetPassButton color="primary">Update password</ResetPassButton>
+            </Form>
           );
         }}
       </Formik>
@@ -62,11 +63,6 @@ interface formValues {
   password: string;
   confirmPassword: string;
 }
-
-const StyledForm = styled(Form)`
-  display: flex;
-  flex-direction: column;
-`;
 
 const ResetPassButton = styled(Button)`
   margin-top: 10px;

@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { validateEmail } from './LoginForm';
 import { forgotPasswordRequest } from 'redux/actions/auth';
 import Input from 'components/UI/Input/Input';
-import Button from 'components/UI/Button';
+import { Button } from 'reactstrap';
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const ForgotPassword = () => {
         }}>
         <StyledForm>
           <Input validate={validateEmail} name="email" label="Email" />
-          <ResetPassButton>Send link for password reset</ResetPassButton>
+          <ResetPassButton color="primary">Send link for password reset</ResetPassButton>
         </StyledForm>
       </Formik>
     </div>
